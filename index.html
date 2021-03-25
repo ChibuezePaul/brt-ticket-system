@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="./bootstrap4/css/bootstrap.min.css">
+<link rel="stylesheet" href="./bootstrap4/js/bootstrap.min.js">
+<link rel="stylesheet" href="./assets/css/style.css">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRT Booking System</title>
+</head>
+
+<body>
+  <section id="index">
+    <div id="page-2">
+
+      <!-- Search For available Buses page -->
+      <div id="searchLoc" class="container">
+        <div class="center">
+          <div class="autocomplete" style="width:100%;">
+            <input class="form-control" id="departure" type="text" name="myCountry"
+              placeholder="Departure Location"><br />
+          </div>
+          <div class="autocomplete" style="width:100%;">
+            <input class="form-control" id="destination" type="text" name="myCountry"
+              placeholder="Destination Location"><br />
+          </div>
+          <label for="departure">Departure Time:</label>
+          <input class="form-control" type="time" name="depart" id="" placeholder="Time of Departure"><br />
+          <button class=" btn btn-primary btn-lg form-control" data-switch="#availableBus">Search</button>
+        </div>
+      </div>
+      <!-- ======================================= -->
+      <!-- Search For available Buses page ENDS HERE-->
+
+      <!-- Available Buses Page -->
+      <div id="availableBus" style="display: none;">
+        <div class="container">
+          <br />
+          <br />
+          <br />
+          <div class="row">
+            <div class="col" style="background-color: #fff; border-radius: 15px; width: 70px; height: 400px; 
+                border: 1px solid #c3c3c3; display: flex; flex-wrap: wrap; align-content: center;">
+              <div>
+                <button type="button" class="btn btn-primary" style="background-color: white; border: grey 0px;"
+                  data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+                  <img src="./images/buses.jpeg" alt="" width="100%" srcset=""> <br />
+                  <p style="color: black;">Location:<br />
+                    Destination:<br />
+                    Time of Departure:
+                </button>
+              </div>
+            </div>
+            <div class="col" style="background-color: #fff; border-radius: 15px; width: 70px; height: 400px; 
+              border: 1px solid #c3c3c3; display: flex; flex-wrap: wrap; align-content: center;">
+              <div>
+                <img src="./images/buses.jpeg" alt="" width="100%" srcset="">
+                <br />Location:<br />
+                Destination:<br />
+                Time of Departure:
+              </div>
+            </div>
+            <div class="col" style="background-color: #fff; border-radius: 15px; width: 70px; height: 400px; 
+              border: 1px solid #c3c3c3; display: flex; flex-wrap: wrap; align-content: center;">
+              <div>
+                <img src="./images/buses.jpeg" alt="" width="100%" srcset="">
+                <br />Location:<br />
+                Destination:<br />
+                Time of Departure:
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ==============================-->
+      <!-- Available Buses Page ENDS HERE-->
+
+      <!-- Payment  Page-->
+      <div id="payment" style="display: none;">
+        <div class="center">
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+              <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required
+                autofocus />
+            </div>
+            <div class="col-3"></div>
+
+          </div><br />
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-4">
+              Expiry Date
+            </div>
+            <div class="col-2">
+              CVV Code
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+
+            <div class="col-2">
+              <input type="text" maxlength="3" class="form-control" id="cardNumber" placeholder="MM" required />
+            </div>
+            <div class="col-2">
+              <input type="text" maxlength="2" class="form-control" id="cardNumber" placeholder="YY" required />
+            </div>
+
+            <div class="col-2">
+              <input type="text" maxlength="3" class="form-control" id="cardNumber" placeholder="CVV" required />
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-6">
+              <br />
+              <button class=" btn btn-primary btn-lg form-control" data-switch="#searchLoc1">Pay</button>
+              <button class="form-control" data-switch="#check">Search</button>
+
+              <!-- <a href="" class="btn btn-success btn-lg btn-block" role="button">Pay</a> -->
+            </div>
+            <div class="col-3"></div>
+          </div>
+        </div>
+      </div>
+      <!-- ==============================-->
+      <!-- Payment Page ENDS HERE  -->
+
+      <!-- Receipt  Page-->
+      <div id="searchLoc1" style="display: none;">
+        <div class="row" style="padding-top: 100px;">
+          <div class="col-3"></div>
+          <div class="col-6" style="background-color: whitesmoke; padding: 20px; border-radius: 20px;">
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <address>
+                  <strong>BRT Reservation Ticket</strong>
+                  <br>
+                  212 Oyingbo Market,
+                  <br>
+                  Lagos State, Nigeria
+                  <br>
+                  <abbr title="Phone">Phone No:</abbr> (+234) 816-8898-016
+                </address>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                <p>
+                  <em>Date: 1st November, 2013</em>
+                </p>
+                <p>
+                  <em>Receipt #: 34522677W</em>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="text-center">
+                <h1>Booking Receipt</h1>
+              </div>
+              </span>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Seat #</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-md-9"><em>Oyingbo to Ikeja</em></h4>
+                    </td>
+                    <td class="col-md-1" style="text-align: center"> 2, 4 </td>
+                    <td class="col-md-1 text-center">N50</td>
+                    <td class="col-md-1 text-center">N100</td>
+                  </tr>
+
+                  <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td class="text-right">
+                      <p>
+                        <strong>Subtotal: </strong>
+                      </p>
+                    </td>
+                    <td class="text-center">
+                      <p>
+                        <strong>N100</strong>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td class="text-right">
+                      <h4><strong>Total: </strong></h4>
+                    </td>
+                    <td class="text-center text-danger">
+                      <h4><strong>N100</strong></h4>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="button" onclick="window.print()" class="btn btn-primary">
+                Print   <span class="glyphicon glyphicon-chevron-right"></span>
+              </button>
+              </td>
+            </div>
+          </div>
+          <div class="col-3"></div>
+
+        </div>
+      </div>
+      <!-- ======================================= -->
+      <!-- Receipt page ENDS HERE-->
+
+
+      <!-- Modal Section  -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Available Seats</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row">
+                  <div class="col-2" style="padding-bottom: 20px;">1 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">2 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">3 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">4 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">5 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">6 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">7 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">8 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">9 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">10 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">11 <input type="checkbox" name="one" id=""></div>
+                  <div class="col-2" style="padding-bottom: 15px;">12 <input type="checkbox" name="one" id=""></div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class=" btn btn-primary btn-lg form-control" data-switch="#payment" data-dismiss="modal"
+                aria-label="Close">Pay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./bootstrap4/js/bootstrap.min.js"></script>
+  <script src="./assets/js/index.js"></script>
+
+</body>
+
+</html>
