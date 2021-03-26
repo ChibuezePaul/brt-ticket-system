@@ -21,103 +21,112 @@
     <div class="container">
         <br> <br> <br>
 
-        
+
         <div class="row">
             <aside class="col-sm-4"></aside>
-            
             <aside class="col-sm-4">
                 <div class="container">
                     <div class="row">
-                      <div class="col-12">
-                        <div class="card mt-3 tab-card">
-                          
-                            
-                          <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
-                                <h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
-                                <hr> 
-                                    <p id="error"></p>
-                                    
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fa fa-envelope"> </i> </span>
-                                            </div>
-                                            <input id="email" name="email" class="form-control" placeholder="Email" type="email" required>
-                                        </div> <!-- input-group.// -->
-                                    </div> <!-- form-group// -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
-                                            </div>
-                                            <input id="pw" name="password" class="form-control" placeholder="******" type="password" required>
-                                        </div> <!-- input-group.// -->
-                                    </div> <!-- form-group// -->
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block" onclick="login()"> Login </button>
-                                    </div> <!-- form-group// -->
-                                    <!-- <p class="text-center"><a href="#" class="btn">Forgot password?</a></p> -->
-                            </div>
-                            <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-                                <h4 class="card-title text-center mb-4 mt-1">Sign up</h4>
-                                <hr> 
-                                    <p id="error1"></p>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fa fa-user"> </i> </span>
-                                            </div>
-                                            <input id="fullName" name="fullName" class="form-control" placeholder="Full Name" type="text" required>
-                                        </div> <!-- input-group.// -->
-                                    </div> <!-- form-group// -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fa fa-envelope"> </i> </span>
-                                            </div>
-                                            <input id="email1" name="email1" class="form-control" placeholder="Email" type="email" required>
-                                        </div> <!-- input-group.// -->
-                                    </div> <!-- form-group// -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
-                                            </div>
-                                            <input id="password" class="form-control" placeholder="Enter Password" type="password" required>
-                                        </div> <!-- input-group.// -->
-                                    </div> <!-- form-group// -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
-                                            </div>
-                                            <input id="confPassword" class="form-control" placeholder="Confirm Password" type="password" required>
-                                        </div> <!-- input-group.// -->
-                                    </div> <!-- form-group// -->
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block" onclick="register()"> SignUp </button>
-                                    </div> <!-- form-group// -->
-                                    <!-- <p class="text-center"><a href="#" class="btn">Forgot password?</a></p> -->
-                            </div>
-                  
-                          </div>
-                          <div class="card-header tab-card-header">
-                            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                              <li class="nav-item">
-                                  <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Existing User</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">New User</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                        <div class="col-12">
+                            <div class="card mt-3 tab-card">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active p-3" id="one" role="tabpanel"
+                                        aria-labelledby="one-tab">
+                                        <h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
+                                        <hr>
+                                        <p id="error"></p>
 
-                  
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fa fa-envelope"> </i>
+                                                    </span>
+                                                </div>
+                                                <input id="email" name="email" class="form-control" placeholder="Email"
+                                                    type="email" required>
+                                            </div> <!-- input-group.// -->
+                                        </div> <!-- form-group// -->
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
+                                                </div>
+                                                <input id="pw" name="password" class="form-control" placeholder="******"
+                                                    type="password" required>
+                                            </div> <!-- input-group.// -->
+                                        </div> <!-- form-group// -->
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block" onclick="login()">
+                                                Login </button>
+                                        </div> <!-- form-group// -->
+                                    </div>
+                                    <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+                                        <h4 class="card-title text-center mb-4 mt-1">Sign up</h4>
+                                        <hr>
+                                        <p id="error1"></p>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fa fa-user"> </i> </span>
+                                                </div>
+                                                <input id="fullName" name="fullName" class="form-control"
+                                                    placeholder="Full Name" type="text" required>
+                                            </div> <!-- input-group.// -->
+                                        </div> <!-- form-group// -->
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fa fa-envelope"> </i>
+                                                    </span>
+                                                </div>
+                                                <input id="email1" name="email1" class="form-control"
+                                                    placeholder="Email" type="email" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
+                                                </div>
+                                                <input id="password" class="form-control" placeholder="Enter Password"
+                                                    type="password" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
+                                                </div>
+                                                <input id="confPassword" class="form-control"
+                                                    placeholder="Confirm Password" type="password" required>
+                                            </div> <!-- input-group.// -->
+                                        </div> <!-- form-group// -->
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block"
+                                                onclick="register()"> SignUp </button>
+                                        </div> <!-- form-group// -->
+                                        <!-- <p class="text-center"><a href="#" class="btn">Forgot password?</a></p> -->
+                                    </div>
+
+                                </div>
+                                <div class="card-header tab-card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab"
+                                                aria-controls="One" aria-selected="true">Existing User</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab"
+                                                aria-controls="Two" aria-selected="false">New User</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </aside>
             <aside class="col-sm-4"></aside>
         </div>
@@ -126,7 +135,7 @@
     <!--container end.//-->
 
     <br><br><br>
-    
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./bootstrap4/js/bootstrap.min.js"></script>
@@ -134,37 +143,37 @@
     <script>
         function login() {
             var msg = "";
-            if (document.getElementById("email").value=="" || document.getElementById("pw").value=="") {
+            if (document.getElementById("email").value == "" || document.getElementById("pw").value == "") {
                 msg = "<p style='color: red'>Email and password cannot be Empty<p>";
                 document.getElementById('error').innerHTML = msg;
 
-            } else if(document.getElementById("email").value=="amos"){
+            } else if (document.getElementById("email").value == "amos") {
                 msg = "<p style='color: green'>Login Successful!<p>";
                 document.getElementById('error').innerHTML = msg;
-                window.location.href='index.html'
-            } 
+                window.location.href = 'index.html'
+            }
         }
 
         function register() {
             var msg = "";
-            let fullName =document.getElementById("fullName").value
+            let fullName = document.getElementById("fullName").value
             let email1 = document.getElementById("email1").value
             let pw1 = document.getElementById("password").value
             let pw2 = document.getElementById("confPassword").value
 
-            if (fullName=="" || email1=="" || pw1=="" ||  pw2=="") {
+            if (fullName == "" || email1 == "" || pw1 == "" || pw2 == "") {
                 msg = "<p style='color: red'>All Fields must be Entered<p>";
                 document.getElementById('error1').innerHTML = msg;
-            } 
-            else if(pw1 != pw2){
+            }
+            else if (pw1 != pw2) {
                 msg = "<p style='color: red'>Passwords Do not match<p>";
                 document.getElementById('error1').innerHTML = msg;
             }
-            else if(email1=="amos"){
+            else if (email1 == "amos") {
                 msg = "<p style='color: green'>Registration Successful!<p>";
                 document.getElementById('error1').innerHTML = msg;
-                window.location.href='index.html'
-            } 
+                window.location.href = 'index.html'
+            }
             alert(email1)
         }
     </script>
