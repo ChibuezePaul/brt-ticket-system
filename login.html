@@ -9,8 +9,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,18 +31,19 @@
                       <div class="col-12">
                         <div class="card mt-3 tab-card">
                           
-                  
+                            
                           <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
                                 <h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
                                 <hr> 
-                                <form>
+                                    <p id="error"></p>
+                                    
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fa fa-envelope"> </i> </span>
                                             </div>
-                                            <input name="" class="form-control" placeholder="Email" type="email" required>
+                                            <input id="email" name="email" class="form-control" placeholder="Email" type="email" required>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- form-group// -->
                                     <div class="form-group">
@@ -52,25 +51,24 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
                                             </div>
-                                            <input class="form-control" placeholder="******" type="password" required>
+                                            <input id="pw" name="password" class="form-control" placeholder="******" type="password" required>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- form-group// -->
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                                        <button type="submit" class="btn btn-primary btn-block" onclick="login()"> Login </button>
                                     </div> <!-- form-group// -->
-                                    <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
-                                </form>                                       
+                                    <!-- <p class="text-center"><a href="#" class="btn">Forgot password?</a></p> -->
                             </div>
                             <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
                                 <h4 class="card-title text-center mb-4 mt-1">Sign up</h4>
                                 <hr> 
-                                <form>
+                                    <p id="error1"></p>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fa fa-user"> </i> </span>
                                             </div>
-                                            <input name="" class="form-control" placeholder="Full Name" type="text" required>
+                                            <input id="fullName" name="fullName" class="form-control" placeholder="Full Name" type="text" required>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- form-group// -->
                                     <div class="form-group">
@@ -78,7 +76,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fa fa-envelope"> </i> </span>
                                             </div>
-                                            <input name="" class="form-control" placeholder="Email" type="email" required>
+                                            <input id="email1" name="email1" class="form-control" placeholder="Email" type="email" required>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- form-group// -->
                                     <div class="form-group">
@@ -86,7 +84,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
                                             </div>
-                                            <input class="form-control" placeholder="Enter Password" type="password" required>
+                                            <input id="password" class="form-control" placeholder="Enter Password" type="password" required>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- form-group// -->
                                     <div class="form-group">
@@ -94,14 +92,13 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fa fa-lock"> </i> </span>
                                             </div>
-                                            <input class="form-control" placeholder="Confirm Password" type="password" required>
+                                            <input id="confPassword" class="form-control" placeholder="Confirm Password" type="password" required>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- form-group// -->
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block"> SignUp </button>
+                                        <button type="submit" class="btn btn-primary btn-block" onclick="register()"> SignUp </button>
                                     </div> <!-- form-group// -->
-                                    <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
-                                </form>               
+                                    <!-- <p class="text-center"><a href="#" class="btn">Forgot password?</a></p> -->
                             </div>
                   
                           </div>
@@ -134,6 +131,43 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./bootstrap4/js/bootstrap.min.js"></script>
 
+    <script>
+        function login() {
+            var msg = "";
+            if (document.getElementById("email").value=="" || document.getElementById("pw").value=="") {
+                msg = "<p style='color: red'>Email and password cannot be Empty<p>";
+                document.getElementById('error').innerHTML = msg;
+
+            } else if(document.getElementById("email").value=="amos"){
+                msg = "<p style='color: green'>Login Successful!<p>";
+                document.getElementById('error').innerHTML = msg;
+                window.location.href='index.html'
+            } 
+        }
+
+        function register() {
+            var msg = "";
+            let fullName =document.getElementById("fullName").value
+            let email1 = document.getElementById("email1").value
+            let pw1 = document.getElementById("password").value
+            let pw2 = document.getElementById("confPassword").value
+
+            if (fullName=="" || email1=="" || pw1=="" ||  pw2=="") {
+                msg = "<p style='color: red'>All Fields must be Entered<p>";
+                document.getElementById('error1').innerHTML = msg;
+            } 
+            else if(pw1 != pw2){
+                msg = "<p style='color: red'>Passwords Do not match<p>";
+                document.getElementById('error1').innerHTML = msg;
+            }
+            else if(email1=="amos"){
+                msg = "<p style='color: green'>Registration Successful!<p>";
+                document.getElementById('error1').innerHTML = msg;
+                window.location.href='index.html'
+            } 
+            alert(email1)
+        }
+    </script>
 </body>
 
 </html>
