@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+const app = require('../app');
+const http = require('http');
+const { PORT } = require('../core/config');
+const { logger } = require('../core/logger');
+app.set('port', PORT);
+
+const server = http.createServer(app);
+server.listen(PORT);
+server.on('error', onError);
+server.on('listening', () => logger.info(`BRT Ticket System Listening On Port ${PORT}`));
+
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw new Error(error.message);
+  }
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      logger.error(PORT + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      logger.error(PORT + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error.message;
+  }
+}
