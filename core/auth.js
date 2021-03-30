@@ -4,6 +4,6 @@ module.exports = {
             return next();
         }
         req.flash('error_msg', 'Kindly Login or Register');
-        res.redirect('/users/login');
+        res.render('login', {error_msg: 'Kindly Login or Register'});
     }
 };

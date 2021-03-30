@@ -1,15 +1,23 @@
 body {
-    background-image: url('../../images/Bus-terminal.jpeg');
+    background-image: url('../images/Bus-terminal.jpeg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-  }
-  .center {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.center {
     margin: auto;
     width: 50%;
     padding: 220px 0;
-  }
-  .autocomplete-items {
+}
+
+.autocomplete-items {
     position: absolute;
     border: 1px solid #d4d4d4;
     border-bottom: none;
@@ -19,31 +27,33 @@ body {
     top: 100%;
     left: 0;
     right: 0;
-  }
-  /*the container must be positioned relative:*/
-  .autocomplete {
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
     position: relative;
     display: inline-block;
-  }
-  .autocomplete-items div {
+}
+
+.autocomplete-items div {
     padding: 10px;
     cursor: pointer;
-    background-color: #fff; 
-    border-bottom: 1px solid #d4d4d4; 
-  }
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
 
-  /*when hovering an item:*/
-  .autocomplete-items div:hover {
-    background-color: #e9e9e9; 
-  }
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
 
-  /*when navigating through the items using the arrow keys:*/
-  .autocomplete-active {
-    background-color: DodgerBlue !important; 
-    color: #ffffff; 
-  }
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
 
-  body {
+body {
     background-color: #f7f8f9;
 }
 
@@ -57,36 +67,40 @@ body {
 /* Tabs Card */
 
 .tab-card {
-  border:1px solid #eee;
+    border: 1px solid #eee;
 }
 
 .tab-card-header {
-  background:none;
+    background: none;
 }
+
 /* Default mode */
 .tab-card-header > .nav-tabs {
-  border: none;
-  margin: 0px;
+    border: none;
+    margin: 0px;
 }
+
 .tab-card-header > .nav-tabs > li {
-  margin-right: 2px;
+    margin-right: 2px;
 }
+
 .tab-card-header > .nav-tabs > li > a {
-  border: 0;
-  border-bottom:2px solid transparent;
-  margin-right: 0;
-  color: #737373;
-  padding: 2px 15px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    margin-right: 0;
+    color: #737373;
+    padding: 2px 15px;
 }
 
 .tab-card-header > .nav-tabs > li > a.show {
-    border-bottom:2px solid #007bff;
+    border-bottom: 2px solid #007bff;
     color: #007bff;
 }
+
 .tab-card-header > .nav-tabs > li > a:hover {
     color: #007bff;
 }
 
 .tab-card-header > .tab-content {
-  padding-bottom: 0;
+    padding-bottom: 0;
 }
