@@ -15,18 +15,19 @@ exports.createBus = (newBusDetails) => {
         availableSeats.push({seatNo: i, isAvailable: true, plateNo})
     }
 
-    return Bus({
+    const bus = Bus({
         plateNo,
         numberOfSeat,
         availableSeats,
         departureRoutes,
         destinationRoutes
-    }).save(error => {
+    });
+    bus.save(error => {
         if (error) {
             logger.error(`Error occurred creating bus: ${error}`);
             throw Error('Error occurred creating bus');
         }
-    });
+    }).then(user => user);
 };
 
 exports.getAvailableBusForRoute = (route) => {
