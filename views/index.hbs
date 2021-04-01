@@ -1,6 +1,8 @@
-<!-- Search For available Buses page -->
-<div id="searchLoc" class="container">
-    <div class="center">
+<div class="container-fluid">
+    <br> <br> <br>
+    <div class="row">
+        <aside class="col-sm-4"></aside>
+        <aside class="col-sm-4 text-center">    
         {{#if error_msg}}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{error_msg}}
@@ -17,21 +19,75 @@
                 </button>
             </div>
         {{/if}}
-        <form action="/buses" method="post">
-            <div class="autocomplete" style="width:100%;">
-                <input class="form-control" id="departure" type="text" required name="departure"
-                       placeholder="Departure Location"><br/>
-            </div>
-            <div class="autocomplete" style="width:100%;">
-                <input class="form-control" id="destination" type="text" required name="destination"
-                       placeholder="Destination Location"><br/>
-            </div>
-            <label for="departure">Departure Time:</label>
-            <input class="form-control" type="time" name="depart" id="" required placeholder="Time of Departure"><br/>
-            <button class=" btn btn-primary btn-lg form-control" data-switch="/buses">Search</button>
-        </form>
-    </div>
+         </aside>
+    <aside class="col-sm-4"></aside>
 </div>
+    
+    <div class="row">
+        <aside class="col-sm-3"></aside>
+
+        <aside class="col-sm-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-3 tab-card">
+                            <div class="tab-content" id="myTabContent">
+                                <!-- Search For available Buses page -->
+
+                                <div class="tab-pane fade show active p-3" id="reserve" role="tabpanel" aria-labelledby="reserveSeat">
+                                    <h4 class="card-title text-center mb-4 mt-1"> Search </h4>
+                                    <hr>
+                                   
+                                    <form action="/buses" method="post">
+                                        <div class="autocomplete" style="width:100%;">
+                                            <input class="form-control" id="departure" type="text" required name="departure"
+                                                placeholder="Departure Location"><br/>
+                                        </div>
+                                        <div class="autocomplete" style="width:100%;">
+                                            <input class="form-control" id="destination" type="text" required name="destination"
+                                                placeholder="Destination Location"><br/>
+                                        </div>
+                                        <label for="departure">Departure Time:</label>
+                                        <input class="form-control" type="time" name="depart" id="" required placeholder="Time of Departure"><br/>
+                                        <button class=" btn btn-primary btn-lg form-control" data-switch="/buses">Search</button>
+                                    </form>
+                                </div>
+
+                                {{!-- Cancel Reservation --}}
+                                <div class="tab-pane fade p-3" id="cancel" role="tabpanel" aria-labelledby="cancelReservation">
+                                    <h4 class="card-title text-center mb-4 mt-1"> Cancel Reservation </h4>
+                                    <hr>
+                                   
+                                    <form action="/cancelReservation" method="post">
+                                        <div class="autocomplete" style="width:100%;">
+                                            <input class="form-control" id="departure" type="number" required name="tranRef"
+                                                placeholder="Enter Transaction Reference Number"><br/>
+                                        </div>
+                                    <button class=" btn btn-primary btn-lg form-control" data-switch="/buses">Cancel Reservation</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="card-header tab-card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="reserveSeat" data-toggle="tab" href="#reserve" role="tab" aria-controls="Reserve" aria-selected="true">Reserve Seat</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="cancelReservation" data-toggle="tab" href="#cancel" role="tab" aria-controls="Cancel" aria-selected="false">Cancel Reservation</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </aside>
+        <aside class="col-sm-3"></aside>
+    </div>
+
 <script src="./js/index.js"></script>
 <!-- ======================================= -->
 <!-- Search For available Buses page ENDS HERE-->

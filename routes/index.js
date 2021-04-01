@@ -38,6 +38,15 @@ baseRouter.get('/receipt', (req, res) => {
     res.render('receipt');
 });
 
+baseRouter.get('/cancelReservation', (req, res)=>{
+    // Cancel Reservation here
+})
+
+baseRouter.get('/dashboard',  (req, res) => {
+    // baseRouter.get('/dashboard', ensureAuthenticate, (req, res) => {
+        res.render('dashboard', { title: 'Welcome To BRT Ticket System' });
+});
+
 //### User Routes ###
 
 baseRouter.get('/login', (req, res) => {
