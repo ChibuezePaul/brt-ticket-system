@@ -76,7 +76,8 @@ baseRouter.post('/register', (req, res) => {
 //### Admin Routes ###
 
 baseRouter.get('/admin', (req, res) => {
-    res.render('admin/index');
+    layout: 'blank-layout';
+    res.render('admin/index', {layout: false});
 });
 
 baseRouter.get('/admin/profile', (req, res) => {
