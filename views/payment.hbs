@@ -1,48 +1,93 @@
 <!-- Payment  Page-->
-<div id="payment">
-    <div class="center">
-        <form action="/receipt">
-            <div class="row">
-                <div class="col-3"></div>
-                <div class="col-6">
-                    <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required
-                        autofocus/>
-                </div>
-                <div class="col-3"></div>
-
+<div class="container-fluid">
+    <br> <br> <br>
+    <div class="row">
+        <aside class="col-sm-4"></aside>
+        <aside class="col-sm-4 text-center">
+            {{#if error_msg}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{error_msg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <br/>
-            <div class="row">
-                <div class="col-3"></div>
-                <div class="col-4">
-                    Expiry Date
-                </div>
-                <div class="col-2">
-                    CVV Code
-                </div>
-                <div class="col-3"></div>
-                <div class="col-3"></div>
-
-                <div class="col-2">
-                    <input type="text" maxlength="3" class="form-control" id="cardNumber" placeholder="MM" required/>
-                </div>
-                <div class="col-2">
-                    <input type="text" maxlength="2" class="form-control" id="cardNumber" placeholder="YY" required/>
-                </div>
-
-                <div class="col-2">
-                    <input type="text" maxlength="3" class="form-control" id="cardNumber" placeholder="CVV" required/>
-                </div>
-                <div class="col-3"></div>
-                <div class="col-3"></div>
-                <div class="col-6">
-                    <br/>
-                    <button type="submit" class=" btn btn-primary btn-lg form-control" data-switch="#searchLoc1">Pay</button>
-                </div>
-                <div class="col-3"></div>
+            {{/if}}
+            {{#if success_msg}}
+            <div class="text-center alert alert-success alert-dismissible fade show" role="alert">
+                {{success_msg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
+            {{/if}}
+        </aside>
+        <aside class="col-sm-4"></aside>
     </div>
-</div>
-<!-- ==============================-->
-<!-- Payment Page ENDS HERE  -->
+
+    <div class="row">
+        <aside class="col-sm-4"></aside>
+
+        <aside class="col-sm-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-3 tab-card">
+                            <div class="tab-content" id="myTabContent">
+                                <!-- Search For available Buses page -->
+
+                                <div class="tab-pane fade show active p-3" id="reserve" role="tabpanel"
+                                    aria-labelledby="reserveSeat">
+                                    <h4 class="card-title text-center mb-4 mt-1"> Payment (N3000) </h4>
+                                    <hr>
+
+
+                                    <form action="/receipt">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="text" class="form-control" id="cardNumber"
+                                                    placeholder="Valid Card Number" required autofocus />
+                                            </div>
+
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-8">
+                                                Expiry Date
+                                            </div>
+                                            <div class="col-4">
+                                                CVV Code
+                                            </div>
+
+                                            <div class="col-4">
+                                                <input type="text" maxlength="2" class="form-control" id="cardNumber"
+                                                    placeholder="MM" required />
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" maxlength="2" class="form-control" id="cardNumber"
+                                                    placeholder="YY" required />
+                                            </div>
+
+                                            <div class="col-4">
+                                                <input type="text" maxlength="3" class="form-control" id="cardNumber"
+                                                    placeholder="CVV" required />
+                                            </div>
+                                            <div class="col-12">
+                                                <br />
+                                                <button type="submit" class=" btn btn-primary btn-lg form-control"
+                                                    data-switch="#searchLoc1">Pay</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <aside class="col-sm-3"></aside>
+    </div>
+    <!-- ==============================-->
+    <!-- Payment Page ENDS HERE  -->
