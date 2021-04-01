@@ -6,7 +6,7 @@ const adminService = require("../service/adminService");
 const { ensureAuthenticate } = require('../core/auth');
 let ticket = {};
 
-baseRouter.get('/', ensureAuthenticate, (req, res) => {
+baseRouter.get('/', (req, res) => {
     res.render('index');
 });
 
@@ -32,8 +32,17 @@ baseRouter.post('/payment', (req, res) => {
         .catch(error => res.render('availableBus', {error_msg: error.message}));
 });
 
-baseRouter.get('/dashboard', ensureAuthenticate, (req, res) => {
-  res.render('dashboard', { title: 'Welcome To BRT Ticket System' });
+baseRouter.get('/receipt', (req, res) => {
+    res.render('receipt');
+});
+
+baseRouter.get('/cancelReservation', (req, res)=>{
+    // Cancel Reservation here
+})
+
+baseRouter.get('/dashboard',  (req, res) => {
+    // baseRouter.get('/dashboard', ensureAuthenticate, (req, res) => {
+        res.render('dashboard', { title: 'Welcome To BRT Ticket System' });
 });
 
 baseRouter.get('/login', (req, res) => {

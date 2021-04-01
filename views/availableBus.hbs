@@ -1,6 +1,8 @@
-<!-- Available Buses Page -->
-<div id="availableBus" xmlns="http://www.w3.org/1999/html">
-    <div class="container">
+<div class="container-fluid">
+    <br> <br> <br>
+    <div class="row">
+        <aside class="col-sm-4"></aside>
+        <aside class="col-sm-4 text-center">    
         {{#if error_msg}}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{error_msg}}
@@ -9,42 +11,55 @@
                 </button>
             </div>
         {{/if}}
-        <br/>
-        <div class="row">
-            <div class="col" style="background-color: #fff;
-              border: 1px solid #c3c3c3; align-content: center;">
-                <div>
-                    <img src="./images/buses.jpeg" alt="" width="100%" srcset="">
-                </div>
-            </div>
-            <div class="col" style="background-color: #fff;
-              border: 1px solid #c3c3c3; align-content: center;">
-                <div>
-                    <img src="./images/buses.jpeg" alt="" width="100%" srcset="">
-                </div>
-            </div>
-        </div>
-        <div class="row" style="background-color: #fff; align-content: center;">
-            <br/>
-            <br/>
-            Location: {{route.departure}}
-            <br/>
-            <br/>
-            Destination: {{route.destination}}
-            <br/>
-            <br/>
-            Time of Departure: {{route.depart}}
-            <br/>
-            <br/>
-            <button type="button" class="btn btn-primary btn-lg form-control" data-toggle="modal"
-                    data-target="#exampleModal" data-whatever="@mdo"
-                    style="text-decoration: none; cursor: pointer; opacity: .75;">Book A Seat
-            </button>
-        </div>
-    </div>
+         </aside>
+    <aside class="col-sm-4"></aside>
 </div>
-<!-- ==============================-->
-<!-- Available Buses Page ENDS HERE-->
+    
+    <div class="row">
+        <aside class="col-sm-3"></aside>
+
+        <aside class="col-sm-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-3 tab-card">
+                            
+                            
+                            <div class="row" style="background-color: #fff; align-content: center; padding: 20px">
+                                <div>
+                                    <img src="./images/buses.jpeg" alt="" width="100%" srcset="" style="border-radius: 10px;">
+                                </div>
+                                <br/>
+                                <br/>
+                                Location: {{route.departure}}
+                                <br/>
+                                <br/>
+                                Destination: {{route.destination}}
+                                <br/>
+                                <br/>
+                                Time of Departure: {{route.depart}}
+                                <br/>
+                                <br/>
+                                <button type="button" class="btn btn-primary btn-lg form-control" data-toggle="modal"
+                                        data-target="#exampleModal" data-whatever="@mdo"
+                                        style="text-decoration: none; cursor: pointer; opacity: .75;">Book A Seat
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <aside class="col-sm-3"></aside>
+    </div>
+
+<script src="./js/index.js"></script>
+<!-- ======================================= -->
+<!-- Search For available Buses page ENDS HERE-->
+
+
+
 
 <!-- Modal Section  -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -72,7 +87,7 @@
                         {{/each}}
                     </div>
                     <button type="submit" class=" btn btn-primary btn-lg form-control" data-switch="#payment"
-                            style="text-decoration: none; cursor: pointer; opacity: .75;">Pay
+                            style="text-decoration: none; cursor: pointer; opacity: .75;">Select
                     </button>
                 </form>
             </div>
