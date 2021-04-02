@@ -6,6 +6,14 @@ const busSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    busFare: {
+        type: Number,
+        required: true
+    },
+    reservationRef: {
+        type: String,
+        unique: true
+    },
     numberOfSeat: {
         type: Number,
         required: true

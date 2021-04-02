@@ -22,20 +22,19 @@ baseRouter.post('/buses', (req, res) => {
         .catch(error => res.render('index', {error_msg: error.message}));
 });
 
-baseRouter.post('/payment', (req, res) => {
+baseRouter.post('/reservation', (req, res) => {
     const bookedSeat = req.body;
-    // if(Object.keys(bookedSeat).length === 0){
-    //     res.render('availableBus', {route: ticket['route'], error_msg: 'Kindly Select A Seat Number'})
-    // }
     ticket['seat'] = bookedSeat;
     console.log("redirected payment",ticket);
-    adminService.bookSeat(ticket['seat'])
-        .then(() => res.render('payment'))
-        .catch(error => res.render('index', {error_msg: error.message}));
+    const busFare = adminService.reserveSeat(bookedSeat);
+    ticket['busFare'] = busFare;
+    return res.render('payment', {busFare})
 });
 
-baseRouter.get('/receipt', (req, res) => {
-    res.render('receipt');
+baseRouter.get('/payment', (req, res) => {
+    adminService.bookSeat(ticket['seat'], ticket['route'])
+        .then(trip => res.render('receipt', {trip}))
+        .catch(error => res.render('index', {error_msg: error.message}));
 });
 
 baseRouter.get('/cancelReservation', (req, res)=>{
@@ -76,8 +75,12 @@ baseRouter.post('/register', (req, res) => {
 //### Admin Routes ###
 
 baseRouter.get('/admin', (req, res) => {
-    layout: 'blank-layout';
-    res.render('admin/index', {layout: false});
+    adminService.getAllBus()
+        .then(buses => {
+            ticket['buses'] = buses;
+            res.render('admin/index', {layout: false, buses})
+        })
+        .catch(error => res.render('admin/index', {layout: false, buses: []}));
 });
 
 baseRouter.get('/admin/profile', (req, res) => {
@@ -99,8 +102,15 @@ baseRouter.get('/admin/register', (req, res) => {
 baseRouter.post('/admin/register-bus', (req, res) => {
     console.log('req.body',req.body);
     adminService.createBus(req.body)
-        .then(() => res.render('payment'))
-        .catch(error => res.render('admin/index', {error_msg: error.message}));
+        .then(() => res.redirect('/admin'))
+        .catch(error => res.render('admin/index', {layout: false, error_msg: error, buses: ticket['buses']}));
+});
+
+baseRouter.get('/admin/bus-action', (req, res) => {
+    console.log('req.body',req.body);
+    adminService.busAction(req.query)
+        .then(() => res.redirect('/admin'))
+        .catch(error => res.status(200).render('admin/index', {layout: false, error_msg: error, buses: ticket['buses']}));
 });
 
 module.exports = baseRouter;
