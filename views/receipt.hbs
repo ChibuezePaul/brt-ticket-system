@@ -2,6 +2,7 @@
 <div id="searchLoc1">
     <div class="row" style="padding-top: 100px;">
         <div class="col-3"></div>
+        {{# with trip}}
         <div class="col-6" style="background-color: whitesmoke; padding: 20px; border-radius: 20px;">
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -17,10 +18,10 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                     <p>
-                        <em>Date: 1st November, 2013</em>
+                        <em>Date: {{createdOn}}</em>
                     </p>
                     <p>
-                        <em>Receipt #: 34522677W</em>
+                        <em>Receipt #: {{reservationRef}}</em>
                     </p>
                 </div>
             </div>
@@ -40,11 +41,11 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="col-md-9"><em>Oyingbo to Ikeja</em></h4>
+                        <td class="col-md-9"><em>{{busDetails.departure}} to {{busDetails.destination}}</em></h4>
                         </td>
-                        <td class="col-md-1" style="text-align: center"> 2, 4</td>
-                        <td class="col-md-1 text-center">N50</td>
-                        <td class="col-md-1 text-center">N100</td>
+                        <td class="col-md-1" style="text-align: center"> {{busDetails.seatNo}}</td>
+                        <td class="col-md-1 text-center">&#8358;{{busDetails.seatFare}}</td>
+                        <td class="col-md-1 text-center">&#8358;{{busDetails.busFare}}</td>
                     </tr>
 
                     <tr>
@@ -57,7 +58,7 @@
                         </td>
                         <td class="text-center">
                             <p>
-                                <strong>N100</strong>
+                                <strong>&#8358;{{busDetails.busFare}}</strong>
                             </p>
                         </td>
                     </tr>
@@ -68,7 +69,7 @@
                             <h4><strong>Total: </strong></h4>
                         </td>
                         <td class="text-center text-danger">
-                            <h4><strong>N100</strong></h4>
+                            <h4><strong>&#8358;{{busDetails.busFare}}</strong></h4>
                         </td>
                     </tr>
                     </tbody>
@@ -79,6 +80,7 @@
                 </td>
             </div>
         </div>
+        {{/with}}
         <div class="col-3"></div>
 
     </div>

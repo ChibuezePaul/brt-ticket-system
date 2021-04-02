@@ -1,33 +1,41 @@
 const Bus = require('../model/Bus');
+const Trip = require('../model/Trip');
 const {logger} = require('../core/logger');
 
 exports.createBus = (newBusDetails) => {
-    const {plateNo, numberOfSeat, departureRoutes, destinationRoutes} = newBusDetails;
-    if (!plateNo || !numberOfSeat) {
-        throw Error('Invalid Bus Details');
-    }
+    return new Promise((resolve, reject) => {
+        let {plateNo, busFare, numberOfSeat, departureRoutes, destinationRoutes} = newBusDetails;
 
-    if (!departureRoutes || !departureRoutes) {
-        throw Error('Bus Routes Are Required');
-    }
-    let availableSeats = [];
-    for (let i = 1; i <= numberOfSeat; i++) {
-        availableSeats.push({seatNo: i, isAvailable: true, plateNo})
-    }
-
-    const bus = Bus({
-        plateNo,
-        numberOfSeat,
-        availableSeats,
-        departureRoutes,
-        destinationRoutes
-    });
-    bus.save(error => {
-        if (error) {
-            logger.error(`Error occurred creating bus: ${error}`);
-            throw Error('Error occurred creating bus');
+        if (!plateNo || !numberOfSeat) {
+            throw Error('Invalid Bus Details');
         }
-    }).then(user => user);
+
+        if (!departureRoutes || !departureRoutes) {
+            throw Error('Bus Routes Are Required');
+        }
+
+        departureRoutes = departureRoutes.split(',');
+        destinationRoutes = destinationRoutes.split(',');
+
+        let availableSeats = [];
+        for (let i = 1; i <= numberOfSeat; i++) {
+            availableSeats.push({seatNo: i, isAvailable: true, plateNo, busFare})
+        }
+
+        new Bus({
+            plateNo,
+            busFare,
+            numberOfSeat,
+            availableSeats,
+            departureRoutes,
+            destinationRoutes
+        }).save()
+            .then(user => resolve(user))
+            .catch(error => {
+                logger.error(`Error occurred creating bus: ${error}`);
+                reject('Error Occurred Creating Bus. Contact Admin!')
+            });
+    });
 };
 
 exports.getAvailableBusForRoute = (route) => {
@@ -46,50 +54,142 @@ exports.getAvailableBusForRoute = (route) => {
         .then(buses => buses);
 };
 
-exports.bookSeat = (seatDetails) => {
-    const plateNo = Object.keys(seatDetails);
-    let seatNo = seatDetails[plateNo];
-    console.log('plateNo', plateNo)
-    console.log('seatNo', seatNo)
-    if (typeof seatNo === "string") {
-        seatNo = [seatNo]
-    }
+exports.bookSeat = (seatDetails, routeDetails) => {
+    const plateNo = Object.keys(seatDetails).toString().split(',')[0];
     return Bus.findOne({isActive: 'Y', plateNo: plateNo})
         .orFail((error) => {
             logger.error(`Error fetching bus with plate number ${plateNo}: ${error}`);
             throw Error('Bus Not Found');
         })
         .then(bus => {
-            const availableSeatCount = bus.availableSeats.length;
-            seatNo.forEach(s => bus.availableSeats = bus.availableSeats.filter(seat => seat.seatNo != s));
-            const remainingSeatCount = bus.availableSeats.length;
-            if (remainingSeatCount === availableSeatCount) {
-                throw Error(`Seat Already Booked`)
-            }
+            let seatNo = Object.values(seatDetails);
+            bus.availableSeats.forEach(seat => {
+                if(seat.seatNo == seatNo && !seat.isAvailable){
+                    throw Error('Seat Already Booked');
+                }
+            });
+            bus = this.reserveSeat(seatDetails, bus);
             bus.save()
                 .catch(error => {
                     if (error) {
                         logger.error(`Error saving booked seat with details ${seatDetails}: ${error}`);
                     }
-                })
+                });
+            const busDetails = {
+                seatNo: Object.values(seatDetails).toString(),
+                departure: routeDetails.departure,
+                destination: routeDetails.destination,
+                departureTime: routeDetails.depart,
+                busPlateNo: plateNo,
+                busFare: bus.tripFare,
+                seatFare: Object.keys(seatDetails).toString().split(',')[1]
+            };
+            const reservationRef = 'BRT'+bus.plateNo+new Date().getTime();
+            return Trip({
+                busDetails,
+                reservationRef,
+            }).save()
+                .then(trip => trip)
+                .catch(error => {
+                    if (error) {
+                        logger.error(`Error saving trip with details ${bus}: ${error}`);
+                    }
+                });
         })
 };
 
-exports.setBusInactive = (plateNo) => {
-    return Bus.findOneAndUpdate(
-        {isActive: 'Y', plateNo: plateNo},
-        {
-            $set: {
-                isActive: 'N'
-            }
-        },
-        {
-            new: true,
-            useFindAndModify: false
-        })
-        .orFail((error) => {
-            logger.error(`Error fetching bus with plate number ${plateNo}: ${error}`);
-            throw Error('Bus Not Found');
-        })
-        .then(bus => bus);
+exports.busAction = (command) => {
+    if(!command){
+        throw Error('Invalid Command Sent')
+    }
+    const {action, id} = command;
+    if(!action || !id){
+        throw Error('Invalid Parameters')
+    }
+
+    switch (action) {
+        case 'delete':
+            return setBusInactive(id);
+        case 'reset':
+            return resetBus(id);
+        case 'update':
+
+    }
+};
+
+exports.getAllBus = () => {
+    return Bus.find({isActive: 'Y'})
+        .sort({plateNo: 'asc'})
+        .then(buses => buses);
+};
+
+exports.reserveSeat = (seatDetails, bus) => {
+    let keyDetails = Object.keys(seatDetails);
+    keyDetails = keyDetails.toString().split(',');
+    let seatNo = Object.values(seatDetails);
+    let tripFare = 0;
+    seatNo = seatNo.toString().split(',');
+    if(bus){
+        seatNo.forEach(s => {
+            tripFare += Number(bus.busFare);
+            bus.availableSeats = bus.availableSeats.filter(seat => seat.seatNo != s)
+        });
+        bus['tripFare'] = tripFare;
+        return bus;
+    }
+    seatNo.forEach(() => tripFare += Number(keyDetails[1]));
+    return tripFare;
+};
+
+resetBus = (plateNo) => {
+    return new Promise((resolve, reject) => {
+        getBusByPlateNo(plateNo)
+            .then(bus => {
+                if (bus.availableSeats.length === 0) {
+                    for (let i = 1; i <= bus.numberOfSeat; i++) {
+                        bus.availableSeats.push({seatNo: i, isAvailable: true, plateNo, busFare: bus.busFare})
+                    }
+                    return bus.save()
+                        .then(bus => resolve(bus))
+                        .catch(error => {
+                            logger.error(`Error Resetting bus seats with details ${plateNo}: ${error}`);
+                            return reject('Bus Reset Failed. Contact Admin!');
+                        });
+                } else {
+                    return reject('Bus Still Has Available Seats');
+                }
+            })
+            .catch(error => {
+                logger.error(`Error Resetting bus seats with details ${plateNo}: ${error}`);
+                return reject('Unable To Reset Bus');
+            });
+    });
+};
+
+setBusInactive = (plateNo) => {
+    return new Promise((resolve, reject) => {
+        return Bus.findOneAndUpdate(
+            {isActive: 'Y', plateNo: plateNo},
+            {
+                $set: {
+                    isActive: 'N',
+                    plateNo: plateNo+'+D+'+Date.now()
+                }
+            },
+            {
+                new: true,
+                useFindAndModify: false
+            })
+            .orFail((error) => {
+                logger.error(`Error fetching bus with plate number ${plateNo}: ${error}`);
+                return reject('Bus Not Found');
+            })
+            .then(bus => resolve(bus));
+    });
+};
+
+getBusByPlateNo = (plateNo) =>{
+    return Bus.findOne({isActive: 'Y', plateNo: plateNo})
+        .then(bus => bus)
+        .catch(() => '404');
 };

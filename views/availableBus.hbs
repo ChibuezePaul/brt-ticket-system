@@ -73,14 +73,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/payment" method="post">
+                <form action="/reservation" method="post">
                     <div class="row">
                         {{#each availableBus}}
-                            {{#each this.availableSeats}}
+                            {{#each availableSeats}}
                                 <div class="col-2" style="padding-bottom: 20px;">
-                                    {{#if this.isAvailable}}
-                                        {{this.seatNo}}
-                                        <input type="checkbox" name={{this.plateNo}} value={{this.seatNo}} >
+                                    {{#if isAvailable}}
+                                        {{seatNo}}
+                                        <input type="checkbox" name="{{plateNo}},{{busFare}}" value={{seatNo}} >
                                     {{/if}}
                                 </div>
                             {{/each}}
