@@ -4,16 +4,18 @@
         <div class="col-3"></div>
         {{# with trip}}
         <div class="col-6" style="background-color: whitesmoke; padding: 20px; border-radius: 20px;">
+            <div class="text-center">
+                    <h1>Booking Receipt</h1><hr>
+                </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <address>
                         <strong>BRT Reservation Ticket</strong>
                         <br>
-                        212 Oyingbo Market,
-                        <br>
+                       
                         Lagos State, Nigeria
                         <br>
-                        <abbr title="Phone">Phone No:</abbr> (+234) 816-8898-016
+                        <abbr title="Phone"></abbr> (+234) 816-8898-016
                     </address>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 text-right">
@@ -26,41 +28,29 @@
                 </div>
             </div>
             <div class="row">
-                <div class="text-center">
-                    <h1>Booking Receipt</h1>
-                </div>
-                </span>
+                
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Product</th>
-                        <th>Seat #</th>
+                        <th>Route</th>
+                        <th>Seat#</th>
                         <th class="text-center">Price</th>
                         <th class="text-center">Total</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="col-md-9"><em>{{busDetails.departure}} to {{busDetails.destination}}</em></h4>
+                        <td class="col-md-9"><em>{{busDetails.departure}} to {{busDetails.destination}}</em>
                         </td>
                         <td class="col-md-1" style="text-align: center"> {{busDetails.seatNo}}</td>
-                        <td class="col-md-1 text-center">&#8358;{{busDetails.seatFare}}</td>
+                        <td class="col-md-1 text-center">&#8358;{{busDetails.busFare}}</td>
                         <td class="col-md-1 text-center">&#8358;{{busDetails.busFare}}</td>
                     </tr>
 
                     <tr>
                         <td>  </td>
                         <td>  </td>
-                        <td class="text-right">
-                            <p>
-                                <strong>Subtotal: </strong>
-                            </p>
-                        </td>
-                        <td class="text-center">
-                            <p>
-                                <strong>&#8358;{{busDetails.busFare}}</strong>
-                            </p>
-                        </td>
+
                     </tr>
                     <tr>
                         <td>  </td>

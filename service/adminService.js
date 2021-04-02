@@ -10,7 +10,7 @@ exports.createBus = (newBusDetails) => {
             throw Error('Invalid Bus Details');
         }
 
-        if (!departureRoutes || !departureRoutes) {
+        if (!departureRoutes || !destinationRoutes) {
             throw Error('Bus Routes Are Required');
         }
 
@@ -37,6 +37,43 @@ exports.createBus = (newBusDetails) => {
             });
     });
 };
+
+exports.updateBus = (newBusDetails) => {
+    return new Promise((resolve, reject) => {
+        let {plateNo, busFare, departureRoutes, destinationRoutes} = newBusDetails;
+
+        if (!plateNo) {
+            throw Error('Invalid Bus Details');
+        }
+
+        if (!departureRoutes || !destinationRoutes) {
+            throw Error('Bus Routes Are Required');
+        }
+
+        departureRoutes = departureRoutes.split(',');
+        destinationRoutes = destinationRoutes.split(',');
+        var plateNumber = plateNo.slice(-3)
+
+        getBusByPlateNo(plateNumber)
+            .then(bus => {
+                logger.info(`The bus picked is ${bus}`);
+                bus.departureRoutes = departureRoutes;
+                bus.destinationRoutes = destinationRoutes;
+                bus.busFare = busFare.slice(-3);
+                    return bus.save()
+                        .then(bus => resolve(bus))
+                        .catch(error => {
+                            logger.error(`Error Updating bus seats with details ${plateNo}: ${error}`);
+                            return reject('Bus Update Failed. Contact Admin!');
+                        });
+            })
+            .catch(error => {
+                logger.error(`Error Finding Bus with ${plateNo}: ${error}`);
+                return reject('Unable To Find Bus');
+            });
+    });
+
+}
 
 exports.getAvailableBusForRoute = (route) => {
     const {departure, destination} = route;
