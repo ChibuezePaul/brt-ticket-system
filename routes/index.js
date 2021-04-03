@@ -32,8 +32,10 @@ baseRouter.post('/reservation', (req, res) => {
 });
 
 baseRouter.get('/payment', (req, res) => {
+
+    console.log(ticket['route']+ " How far "+ticket['seat']);
     adminService.bookSeat(ticket['seat'], ticket['route'])
-        .then(trip => res.render('receipt', {trip}))
+        .then(trip =>res.render('receipt', {trip}))
         .catch(error => res.render('index', {error_msg: error.message}));
 });
 
@@ -95,14 +97,41 @@ baseRouter.get('/admin/login', (req, res) => {
     res.render('admin/login');
 });
 
+
+baseRouter.post('/admin/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: 'admin/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
 baseRouter.get('/admin/register', (req, res) => {
     res.render('admin/register');
+});
+
+baseRouter.post('/admin/register', (req, res) => {
+    userService.registerUser(req.body)
+        .then(user => res.render('admin/index', {success_msg: `Welcome ${user.name}`}))
+        .catch(error => res.render('admin/login', {error_msg: error.message}));
 });
 
 baseRouter.post('/admin/register-bus', (req, res) => {
     console.log('req.body',req.body);
     adminService.createBus(req.body)
         .then(() => res.redirect('/admin'))
+        .catch(error => res.render('admin/index', {layout: false, error_msg: error, buses: ticket['buses']}));
+});
+
+baseRouter.post('/admin/update-bus', (req, res) => {
+    console.log('req.body',req.body);
+    adminService.updateBus(req.body)
+    .then(() =>{
+        req.flash("success_msg", `${req.body.plateNo} Updated Successfully`)
+        res.redirect('/admin')
+    } )
+
+        // .then(() => res.render('admin', {layout: false, buses: ticket['buses'], success_msg: `${req.body.plateNo} Updated Successfully`}))
         .catch(error => res.render('admin/index', {layout: false, error_msg: error, buses: ticket['buses']}));
 });
 
