@@ -35,12 +35,7 @@ baseRouter.get('/payment', (req, res) => {
 
     console.log(ticket['route']+ " How far "+ticket['seat']);
     adminService.bookSeat(ticket['seat'], ticket['route'])
-        .then(trip => {
-            console.log("How far Zeebaby");
-
-            res.render('receipt', {trip})
-    
-    })
+        .then(trip =>res.render('receipt', {trip}))
         .catch(error => res.render('index', {error_msg: error.message}));
 });
 
