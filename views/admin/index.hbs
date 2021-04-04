@@ -74,7 +74,12 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/login">
+                        <a class="nav-link" href="/admin/register">
+                            <i class="ni ni-key-25 text-info"></i> Add New Admin
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/logout">
                             <i class="ni ni-key-25 text-info"></i> Logout
                         </a>
                     </li>
@@ -242,7 +247,8 @@
                                         <th scope="col">Bus Fare</th>
                                         <th scope="col">Departure</th>
                                         <th scope="col">Destination</th>
-                                        <th scope="col">Departure Time (To)</th>
+                                        <th scope="col">Available Seat</th>
+                                        <th scope="col">Bus Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -273,8 +279,13 @@
                                         </td>
                                         <td>
                                             <input type="text" id="input-username"
-                                                class="form-control form-control-alternative" placeholder="Departure To Time" name="toDTime"
-                                                value="8:00am, 12:00pm, 4:00pm" disabled>
+                                                class="form-control form-control-alternative" placeholder="Available Seat" name="toDTime"
+                                                value={{availableSeats.length}} disabled>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="input-username"
+                                                class="form-control form-control-alternative" placeholder="Available Seat" name="toDTime"
+                                                value={{isActive}} disabled>
                                         </td>
                                         <td>
                                             <ul class="navbar-nav align-items-center d-none d-md-flex">

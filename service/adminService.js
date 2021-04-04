@@ -101,6 +101,8 @@ exports.bookSeat = (seatDetails, routeDetails) => {
         .then(bus => {
             let seatNo = Object.values(seatDetails);
             bus.availableSeats.forEach(seat => {
+                console.log(!seat.isAvailable);
+                console.log(seat.seatNo == seatNo);
                 if(seat.seatNo == seatNo && !seat.isAvailable){
                     throw Error('Seat Already Booked');
                 }
