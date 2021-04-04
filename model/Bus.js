@@ -10,10 +10,6 @@ const busSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    reservationRef: {
-        type: String,
-        unique: true
-    },
     numberOfSeat: {
         type: Number,
         required: true

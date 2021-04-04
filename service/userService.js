@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../model/User');
 const {logger} = require('../core/logger');
 
-exports.registerUser = async (userDetails) => {
+exports.registerUser = async (userDetails, role) => {
     const {name, email, password, confirmPassword} = userDetails;
 
     if (!name || !email || !password || !confirmPassword) {
@@ -16,9 +16,10 @@ exports.registerUser = async (userDetails) => {
     return bcrypt.hash(password, 10)
         .then(passwordHash => {
             return User({
-                name,
-                email,
-                password: passwordHash
+                name: name,
+                email: email,
+                password: passwordHash,
+                role: role || 'user'
             }).save()
                 .then(user => user)
                 .catch(error => {
