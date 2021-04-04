@@ -130,7 +130,16 @@ baseRouter.post('/admin/register', (req, res) => {
 baseRouter.post('/admin/register-bus', ensureAuthenticate, permit(['admin']), (req, res) => {
     console.log('req.body', req.body);
     adminService.createBus(req.body)
-        .then(() => res.redirect('/admin'))
+        .then(() => {
+            // res.redirect('/admin')
+            adminService.getAllBus()
+            .then(buses => {
+                ticket['buses'] = buses;
+                res.render('admin/index', {layout: false, success_msg: `BRT-${req.body.plateNo} was successfully Added`, buses})
+            })
+            .catch(() => res.render('admin/index', {layout: false, buses: []}));
+        
+        })
         .catch(error => res.render('admin/index', {layout: false, error_msg: error, buses: ticket['buses']}));
 });
 
@@ -138,8 +147,14 @@ baseRouter.post('/admin/update-bus', ensureAuthenticate, permit(['admin']), (req
     console.log('req.body', req.body);
     adminService.updateBus(req.body)
         .then(() => {
-            req.flash("success_msg", `${req.body.plateNo} Updated Successfully`);
-            res.redirect('/admin')
+            adminService.getAllBus()
+            .then(buses => {
+                ticket['buses'] = buses;
+                // res.render('admin/index', {layout: false, buses})
+                res.render('admin/index', {layout: false, success_msg: `BRT-${req.body.plateNo} was updated successfully`, buses})
+            })
+            .catch(() => res.render('admin/index', {layout: false, buses: []}));
+        
         })
         .catch(error => res.render('admin/index', {layout: false, error_msg: error, buses: ticket['buses']}));
 });
@@ -147,7 +162,17 @@ baseRouter.post('/admin/update-bus', ensureAuthenticate, permit(['admin']), (req
 baseRouter.get('/admin/bus-action', ensureAuthenticate, permit(['admin']), (req, res) => {
     console.log('req.body', req.body);
     adminService.busAction(req.query)
-        .then(() => res.redirect('/admin'))
+    .then(() => {
+        const {action, id} = req.query;
+       
+        adminService.getAllBus()
+        .then(buses => {
+            ticket['buses'] = buses;
+            res.render('admin/index', {layout: false, success_msg: `BRT-${id} ${action} was  successful`, buses})
+        })
+        .catch(() => res.render('admin/index', {layout: false, buses: []}));
+        
+        })
         .catch(error => res.status(200).render('admin/index', {
             layout: false,
             error_msg: error,

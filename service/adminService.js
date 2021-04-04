@@ -169,37 +169,37 @@ exports.getAllBus = () => {
 
 
 exports.cancelReservation = (reservationRef) => {
-
+    return new Promise((resolve, reject) => {
     Trip.findOne({isActive: 'Y', reservationRef})
     .then( trip => {
-        console.log('====================================');
-        console.log(trip);
-        console.log('====================================');
-        trip.busDetails.seatNo
-    })
-    const plateNo = referenceNo.split('-')[1];
-    const seats = referenceNo.split('-')[2]
-
-    let bookedSeats = seats.split(',');
-    return Bus.findOne({isActive: 'Y', plateNo: plateNo})
-        .orFail((error) => {
-            logger.error(`Error fetching bus with plate number ${plateNo}: ${error}`);
-            throw Error('Bus Not Found');
-        })
+        Bus.findOne({isActive: 'Y', plateNo: trip.busDetails.busPlateNo})
         .then(bus => {
-            for (let i = 0; i <= bookedSeats.length-1; i++) {
-                bus.availableSeats.push({seatNo: bookedSeats[i], isAvailable: true, plateNo, busFare: bus.availableSeats[0].busFare})
-            }
-            
+            trip.busDetails.seatNo.split(',').forEach(seatNo => {
+                bus.availableSeats.push({seatNo, isAvailable: true, plateNo: trip.busDetails.busPlateNo, busFare: bus.busFare})
+            })
             return bus.save()
-            .then(bus => resolve(bus))
+            .then(bus => {
+                
+                trip.isActive = 'N';
+                trip.save()
+                .then( () => {
+                    resolve(bus)
+                   });                
+            })
             .catch(error => {
                 if (error) {
                     logger.error(`Error Resetting bus seats ${seats} with details BRT-${plateNo}: ${error}`);
                     return reject('Reservation Cancelling Failed. Contact Admin!');
                 }
             });
-        })
+        }) 
+    })
+    .catch( error =>{
+        logger.error(`ticket Not Found : ${error}`);
+        return reject('Invalid Ticket number/ Already cancelled reservation. Contact Admin!');
+    })
+});
+
 };
 
 exports.reserveSeat = (seatDetails, bus) => {
