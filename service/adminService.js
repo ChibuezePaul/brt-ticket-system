@@ -121,7 +121,14 @@ exports.bookSeat = (seatDetails, routeDetails) => {
                 busFare: bus.tripFare,
                 seatFare: Object.keys(seatDetails).toString().split(',')[1]
             };
-            const reservationRef = 'BRT'+bus.plateNo+new Date().getTime();
+            console.log("I got here ");
+            let seatNumbers = "";
+            for (const [key, value] of Object.entries(seatDetails)) {
+            seatNumbers = value;
+            }
+            console.log("I got here "+seatNumbers);
+      
+            const reservationRef = 'BRT-'+bus.plateNo+"-"+seatNumbers+"-"+routeDetails.depart;
             return Trip({
                 busDetails,
                 reservationRef,
@@ -158,6 +165,41 @@ exports.getAllBus = () => {
     return Bus.find({isActive: 'Y'})
         .sort({plateNo: 'asc'})
         .then(buses => buses);
+};
+
+
+exports.cancelReservation = (referenceNo) => {
+
+    const plateNo = referenceNo.split('-')[1];
+    const seats = referenceNo.split('-')[2]
+
+    let bookedSeats = seats.split(',');
+    return Bus.findOne({isActive: 'Y', plateNo: plateNo})
+        .orFail((error) => {
+            logger.error(`Error fetching bus with plate number ${plateNo}: ${error}`);
+            throw Error('Bus Not Found');
+        })
+        .then(bus => {
+            for (let i = 0; i <= bookedSeats.length-1; i++) {
+                bus.availableSeats.push({seatNo: bookedSeats[i], isAvailable: true, plateNo, busFare: bus.availableSeats[0].busFare})
+                
+                // bus.availableSeats.forEach(seat => {
+                //     if(seat.seatNo == seatNo && !seat.isAvailable){
+                //         throw Error('Seat Already Booked');
+                //     }
+                // });
+            }
+            
+            console.log('=================AFTER===================');
+            console.log('==================================== '+ plateNo);
+            console.log('==================================== '+JSON.stringify(bus));
+            return bus.save()
+            .then(bus => resolve(bus))
+            .catch(error => {
+                logger.error(`Error Resetting bus seats ${seats} with details BRT-${plateNo}: ${error}`);
+                return reject('Reservation Cancelling Failed. Contact Admin!');
+            });
+        })
 };
 
 exports.reserveSeat = (seatDetails, bus) => {

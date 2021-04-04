@@ -8,6 +8,10 @@ let ticket = {};
 
 //### Booking Routes ###
 
+baseRouter.get('/landingPage',  (req, res) => {
+        res.render('landingPage');
+});
+
 baseRouter.get('/', (req, res) => {
     res.render('index');
 });
@@ -32,15 +36,17 @@ baseRouter.post('/reservation', (req, res) => {
 });
 
 baseRouter.get('/payment', (req, res) => {
-
-    console.log(ticket['route']+ " How far "+ticket['seat']);
     adminService.bookSeat(ticket['seat'], ticket['route'])
         .then(trip =>res.render('receipt', {trip}))
         .catch(error => res.render('index', {error_msg: error.message}));
 });
 
-baseRouter.get('/cancelReservation', (req, res)=>{
+baseRouter.post('/cancelReservation', (req, res)=>{
+    const tranRef = req.body.tranRef;
     // Cancel Reservation here
+    adminService.cancelReservation(tranRef)
+    .then(() => res.redirect('/index'))
+    .catch(error => res.status(200).render('index', {layout: false, error_msg: error, buses: ticket['buses']}));
 })
 
 baseRouter.get('/dashboard',  (req, res) => {
@@ -136,7 +142,6 @@ baseRouter.post('/admin/update-bus', (req, res) => {
 });
 
 baseRouter.get('/admin/bus-action', (req, res) => {
-    console.log('req.body',req.body);
     adminService.busAction(req.query)
         .then(() => res.redirect('/admin'))
         .catch(error => res.status(200).render('admin/index', {layout: false, error_msg: error, buses: ticket['buses']}));
