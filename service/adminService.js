@@ -168,8 +168,15 @@ exports.getAllBus = () => {
 };
 
 
-exports.cancelReservation = (referenceNo) => {
+exports.cancelReservation = (reservationRef) => {
 
+    Trip.findOne({isActive: 'Y', reservationRef})
+    .then( trip => {
+        console.log('====================================');
+        console.log(trip);
+        console.log('====================================');
+        trip.busDetails.seatNo
+    })
     const plateNo = referenceNo.split('-')[1];
     const seats = referenceNo.split('-')[2]
 
