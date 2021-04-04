@@ -8,12 +8,13 @@ let ticket = {};
 
 //### Booking Routes ###
 
-baseRouter.get('/landingPage',  (req, res) => {
-        res.render('landingPage');
+baseRouter.get('/home', ensureAuthenticate, (req, res) => {
+        res.render('index');
 });
 
 baseRouter.get('/', (req, res) => {
-    res.render('index');
+    res.render('landingPage', {layout: false,});
+    // res.render('index');
 });
 
 baseRouter.post('/buses', ensureAuthenticate, (req, res) => {
@@ -43,12 +44,12 @@ baseRouter.post('/payment', ensureAuthenticate, (req, res) => {
         .catch(error => res.render('index', {error_msg: error.message}));
 });
 
-baseRouter.post('/cancelReservation', (req, res)=>{
+baseRouter.post('/cancelReservation', ensureAuthenticate, (req, res)=>{
     const tranRef = req.body.tranRef;
     // Cancel Reservation here
     adminService.cancelReservation(tranRef)
-    .then(() => res.redirect('/index'))
-    .catch(error => res.status(200).render('index', {layout: false, error_msg: error, buses: ticket['buses']}));
+    .then(() => res.render('index', {success_msg: 'Booking Cancelled Successfuly!'}))
+    .catch(error => res.status(200).render('index', {error_msg: error, buses: ticket['buses']}));
 })
 
 baseRouter.get('/dashboard',  (req, res) => {
@@ -64,13 +65,13 @@ baseRouter.get('/login', (req, res) => {
 
 baseRouter.post('/login', (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/',
+        successRedirect: '/home',
         failureRedirect: '/login',
         failureFlash: true
     })(req, res, next);
 });
 
-baseRouter.get('/logout', (req, res) => {
+baseRouter.get('/logout', ensureAuthenticate, (req, res) => {
     req.logout();
     req.flash('success_msg', 'Logged Out Successfully');
     res.redirect('/login')

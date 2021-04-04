@@ -101,8 +101,6 @@ exports.bookSeat = (seatDetails, routeDetails) => {
         .then(bus => {
             let seatNo = Object.values(seatDetails);
             bus.availableSeats.forEach(seat => {
-                console.log(!seat.isAvailable);
-                console.log(seat.seatNo == seatNo);
                 if(seat.seatNo == seatNo && !seat.isAvailable){
                     throw Error('Seat Already Booked');
                 }
@@ -184,22 +182,15 @@ exports.cancelReservation = (referenceNo) => {
         .then(bus => {
             for (let i = 0; i <= bookedSeats.length-1; i++) {
                 bus.availableSeats.push({seatNo: bookedSeats[i], isAvailable: true, plateNo, busFare: bus.availableSeats[0].busFare})
-                
-                // bus.availableSeats.forEach(seat => {
-                //     if(seat.seatNo == seatNo && !seat.isAvailable){
-                //         throw Error('Seat Already Booked');
-                //     }
-                // });
             }
             
-            console.log('=================AFTER===================');
-            console.log('==================================== '+ plateNo);
-            console.log('==================================== '+JSON.stringify(bus));
             return bus.save()
             .then(bus => resolve(bus))
             .catch(error => {
-                logger.error(`Error Resetting bus seats ${seats} with details BRT-${plateNo}: ${error}`);
-                return reject('Reservation Cancelling Failed. Contact Admin!');
+                if (error) {
+                    logger.error(`Error Resetting bus seats ${seats} with details BRT-${plateNo}: ${error}`);
+                    return reject('Reservation Cancelling Failed. Contact Admin!');
+                }
             });
         })
 };
